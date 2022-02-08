@@ -219,7 +219,7 @@ sed -i '/softList\['"'"'list'"'"'\] = tmpList/a\                softList\['"'"'p
 }
 #解锁所有付费插件为永不过期
 chajian_yongjiu(){
-sed -i '/'\"'endtime'\"'\: -1/'\"'endtime'\"'\: 999999999999' /www/server/panel/data/plugin.json
+sed -i '/'"""'endtime'"""'\: -1/'"""'endtime'"""'\: 999999999999' /www/server/panel/data/plugin.json
 	back_home
 }
 #停止服务
