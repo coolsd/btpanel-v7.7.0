@@ -1,12 +1,12 @@
 #!/bin/bash
 #全局变量
-down_url=https://github.com/coolsd/btpanel-v7.7.0/main
+down_url=https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/
 btdown_url=https://download.bt.cn
 panel_path=/www/server/panel
 tools_version='211222'
 #检测新版本
 new_version(){
-    new_version=$(curl -Ss --connect-timeout 100 -m 300 https://github.com/coolsd/btpanel-v7.7.0/main/tools/version)
+    new_version=$(curl -Ss --connect-timeout 100 -m 300 https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/tools/version)
     if [ "$new_version" = '' ];then
 	    echo -e "获取版本号失败正在尝试更新......"
 	    wget -O bttools.sh ${down_url}/tools/bttools.sh && bash bttools.sh
