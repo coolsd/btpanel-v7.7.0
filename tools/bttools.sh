@@ -146,10 +146,8 @@ net.ipv4.tcp_max_orphans = 32768
 }
 #去除强制登陆
 mandatory_landing(){
-  if [ ! -f /www/server/panel/data/userInfo.json ]; then
-	echo "{\"uid\":1000,\"username\":\"admin\",\"serverid\":1}" > /www/server/panel/data/userInfo.json
-fi
-echo "已去除宝塔面板强制绑定账号."  
+sed -i "s|if (bind_user == 'True') {|if (bind_user == 'REMOVED') {|g" /www/server/panel/BTPanel/static/js/index.js
+rm -rf /www/server/panel/data/bind.pl
     back_home
 }
 #修复环境
