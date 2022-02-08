@@ -219,6 +219,7 @@ sed -i '/softList\['"'"'list'"'"'\] = tmpList/a\                softList\['"'"'p
 #解锁所有付费插件为永不过期
 chajian_yongjiu(){
 sed -i '/'\"'endtime'\"'\: -1/'\"'endtime'\"'\: 999999999999' /www/server/panel/data/plugin.json
+	back_home
 }
 #停止服务
 stop_btpanel(){
@@ -380,11 +381,13 @@ count_checking(){
     fi;
     wget ${down_url}/tools/bt.js -O $JS_file;
     bt restart
+	back_home
 }
 #关闭安全入口登录提示页面
 denglu_guanbi(){
     sed -i "s/return render_template('autherr.html')/return abort(404)/" /www/server/panel/BTPanel/__init__.py
 echo -e "已关闭安全入口登录提示页面."
+	back_home
 }
 #删除默认文件
 shanchu_moren(){
@@ -392,6 +395,7 @@ shanchu_moren(){
     sed -i "/index = self.sitePath+'\/index.html'/, /public.ExecShell('chown -R www:www ' + index)/d" /www/server/panel/class/panelSite.py
     sed -i "/doc404 = self.sitePath+'\/404.html'/, /public.ExecShell('chown -R www:www ' + doc404)/d" /www/server/panel/class/panelSite.py
 echo "已去除创建网站自动创建的垃圾文件."
+	back_home
 }
 #关闭未绑定域名提示页面
 guanbi_yuming(){
@@ -400,6 +404,7 @@ if [ -f /www/server/panel/vhost/nginx/0.default.conf ]; then
 	sed -i "s/root \/www\/server\/nginx\/html/return 400/" /www/server/panel/vhost/nginx/0.default.conf
 fi
 echo "已关闭未绑定域名提示页面."
+	back_home
 }
 #关闭活动推荐与在线客服
 guanbi_kefu(){
@@ -410,6 +415,7 @@ if [ ! -f /www/server/panel/data/not_workorder.pl ]; then
 	echo "True" > /www/server/panel/data/not_workorder.pl
 fi
 echo -e "已关闭活动推荐与在线客服."
+	back_home
 }
 #封装工具
 package_btpanel(){
