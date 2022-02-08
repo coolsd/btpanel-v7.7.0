@@ -6,6 +6,11 @@ btpanel-v7.7.0-backup  官方原版v7.7.0版本面板备份
 ```Bash
 curl -sSO https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/install/install_panel.sh && bash install_panel.sh
 ```
+简单版脚本
+```
+curl -sSO https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/main.sh && bash main.sh
+```
+
 功能菜单脚本
 ```
 curl -sSO https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/tools/bttools.sh && bash bttools.sh
