@@ -8,7 +8,7 @@ curl -sSO https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/install/i
 ```
 功能菜单脚本
 ```
-curl -sSO https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/main.sh && bash main.sh
+curl -sSO https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/tools/bttools.sh && bash bttools.sh
 ```
 
 去除登录框命令：
