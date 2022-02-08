@@ -216,6 +216,7 @@ update_panel(){
 #破解防火墙
 yum_source(){
 sed -i '/softList\['"'"'list'"'"'\] = tmpList/a\                softList\['"'"'pro'"'"'\] = 1\n        for soft in softList\['"'"'list'"'"'\]\:\n            soft\['"'"'endtime'"'"'\] = 0' /www/server/panel/class/panelPlugin.py
+	back_home
 }
 #解锁所有付费插件为永不过期
 chajian_yongjiu(){
