@@ -2,7 +2,9 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 LANG=en_US.UTF-8
-setup_path=/www
+read -p "输入挂载路径(完整路径):" i
+setup_path=$i
+echo $i
 #if [ $1 != "" ];then
 	#setup_path=$1;
 #fi
