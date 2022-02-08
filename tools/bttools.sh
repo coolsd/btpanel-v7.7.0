@@ -1,12 +1,12 @@
 #!/bin/bash
 #全局变量
-down_url=https://download.btpanel.cm
+down_url=https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main
 btdown_url=https://download.bt.cn
 panel_path=/www/server/panel
 tools_version='211222'
 #检测新版本
 new_version(){
-    new_version=$(curl -Ss --connect-timeout 100 -m 300 https://www.btpanel.cm/home/tools/version)
+    new_version=$(curl -Ss --connect-timeout 100 -m 300 https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/tools/version)
     if [ "$new_version" = '' ];then
 	    echo -e "获取版本号失败正在尝试更新......"
 	    wget -O bttools.sh ${down_url}/tools/bttools.sh && bash bttools.sh
@@ -93,6 +93,10 @@ cleaning_garbage(){
     echo -e "已完成清理系统使用痕迹..."
     echo -e "垃圾文件清理完毕！您的服务器身轻如燕！"
     back_home
+}
+#安装宝塔7.7
+azhuang_bt(){
+    curl -sSO https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/install/install_panel.sh && bash install_panel.sh
 }
 #系统配置优化
 system_optimization(){
@@ -212,7 +216,10 @@ update_panel(){
 yum_source(){
 sed -i '/softList\['"'"'list'"'"'\] = tmpList/a\                softList\['"'"'pro'"'"'\] = 1\n        for soft in softList\['"'"'list'"'"'\]\:\n            soft\['"'"'endtime'"'"'\] = 0' /www/server/panel/class/panelPlugin.py
 }
-
+#解锁所有付费插件为永不过期
+chajian_yongjiu(){
+sed -i 's/'\"'endtime'\"'\: -1/'\"'endtime'\"'\: 999999999999' /www/server/panel/data/plugin.json
+}
 #停止服务
 stop_btpanel(){
     /etc/init.d/bt stop
@@ -377,8 +384,8 @@ count_checking(){
 #关闭安全入口登录提示页面
 denglu_guanbi(){
     sed -i "s/return render_template('autherr.html')/return abort(404)/" /www/server/panel/BTPanel/__init__.py
-echo "已关闭安全入口登录提示页面."}
-
+echo -e "已关闭安全入口登录提示页面."
+}
 #删除默认文件
 shanchu_moren(){
     sed -i "/htaccess = self.sitePath+'\/.htaccess'/, /public.ExecShell('chown -R www:www ' + htaccess)/d" /www/server/panel/class/panelSite.py
@@ -388,10 +395,12 @@ echo "已去除创建网站自动创建的垃圾文件."
 }
 #关闭未绑定域名提示页面
 guanbi_yuming(){
-    sed -i "s/return render_template('autherr.html')/return abort(404)/" /www/server/panel/BTPanel/__init__.py
-echo "已关闭安全入口登录提示页面."
+sed -i "s/root \/www\/server\/nginx\/html/return 400/" /www/server/panel/class/panelSite.py
+if [ -f /www/server/panel/vhost/nginx/0.default.conf ]; then
+	sed -i "s/root \/www\/server\/nginx\/html/return 400/" /www/server/panel/vhost/nginx/0.default.conf
+fi
+echo "已关闭未绑定域名提示页面."
 }
-
 #关闭活动推荐与在线客服
 guanbi_kefu(){
     if [ ! -f /www/server/panel/data/not_recommend.pl ]; then
@@ -400,9 +409,8 @@ fi
 if [ ! -f /www/server/panel/data/not_workorder.pl ]; then
 	echo "True" > /www/server/panel/data/not_workorder.pl
 fi
-echo "已关闭活动推荐与在线客服."
+echo -e "已关闭活动推荐与在线客服."
 }
-
 #封装工具
 package_btpanel(){
     clear
@@ -424,7 +432,7 @@ back_home(){
 # 退出脚本
 delete(){
     clear
-    echo -e "感谢使用筱杰宝塔工具箱"
+    echo -e "感谢使用宝塔工具箱"
     rm -rf /btpanel_tools.sh
     rm -rf btpanel_tools.sh
 }
@@ -455,9 +463,11 @@ main(){
 #--------------------[离线宝塔]----------------------#
 #    (16)开启完全离线服务    (17)关闭完全离线服务    #
 #   离线功能会完全断开与宝塔的通讯部分功能无法使用   #
+#   (18)安装BT7.7面板
 #--------------------[赞助广告]----------------------#
 # (19)关闭安全入口登录提示页面 (20)去除创建网站自动创建的垃圾文件#
 # (21)关闭未绑定域名提示页面 (22)关闭活动推荐与在线客服   #
+# (23)解锁所有付费插件为永不过期 
 #--------------------[其他功能]----------------------#
 # (a)更新脚本  (b)快捷启动  (c)封装工具  (0)退出脚本 #
 #====================================================#
@@ -503,7 +513,7 @@ main(){
     ;;
     17) close_offline
     ;;
-    18) index_btltd
+    18) azhuang_bt
     ;;
     19) denglu_guanbi
     ;;
@@ -512,6 +522,8 @@ main(){
     21) guanbi_yuming
     ;;
     22) guanbi_kefu
+    ;;
+    23) chajian_yongjiu
     ;;
     a)  new_version
     ;;
