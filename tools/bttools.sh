@@ -3,7 +3,7 @@
 down_url=https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main
 btdown_url=https://download.bt.cn
 panel_path=/www/server/panel
-tools_version='211223'
+tools_version='211224'
 #检测新版本
 new_version(){
     new_version=$(curl -Ss --connect-timeout 100 -m 300 https://raw.githubusercontent.com/coolsd/btpanel-v7.7.0/main/tools/version)
@@ -149,7 +149,8 @@ mandatory_landing(){
   if [ ! -f /www/server/panel/data/userInfo.json ]; then
 	echo "{\"uid\":1000,\"username\":\"admin\",\"serverid\":1}" > /www/server/panel/data/userInfo.json
 fi
-echo "已去除宝塔面板强制绑定账号."    
+echo "已去除宝塔面板强制绑定账号."  
+    back_home
 }
 #修复环境
 repair_environment(){
