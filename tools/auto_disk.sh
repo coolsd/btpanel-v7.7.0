@@ -117,7 +117,7 @@ EOF
 }
 stop_service(){
 
-	/etc/init.d/bt stop
+/etc/init.d/bt stop
 
 	if [ -f "/etc/init.d/nginx" ]; then
 		/etc/init.d/nginx stop > /dev/null 2>&1
